@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gemini_app/api/gemini_api.dart';
+import 'package:gemini_app/prompt/prompt_creator.dart';
 
 void main() {
   runApp(MyApp());
@@ -44,18 +45,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _sendButtonPressed() async {
-    List<String> prompt = [];
-
-    prompt.add(
-        "Você é um chefe de cozinha e vai apoiar cozinheiros amadores a criar receitas com ingredientes que estão à sua disposição");
-    prompt.add(
-        "Com base nos ingredientes informados sugira uma única receita detalhando: resumo da receita contendo título e tempo médio de preparo");
-    prompt.add("ingredientes necessários");
-    prompt.add("modo de preparo");
-    prompt.add("Os ingredientes são: ");
-
-    prompt.add(_inputController.text);
-
+    List<String> prompt = PromptCreator.createRecipePrompt(_inputController.text);
+    
     _isLoading = true;
 
     setState(() { });
