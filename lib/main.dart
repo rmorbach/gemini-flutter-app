@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home: HomeScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -68,8 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
     var image = _selectedImage;
     if (image != null) {
       Uint8List bytes = await image.readAsBytes();
-      result = await _geminiAPI.executePromptWithData(
-          prompt, bytes);
+      result = await _geminiAPI.executePromptWithData(prompt, bytes);
     } else {
       result = await _geminiAPI.executePrompt(prompt);
     }
@@ -99,7 +99,14 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text('Informe os ingredientes disponíveis'),
+        title: Text(
+          'Informe os ingredientes disponíveis ou selecione uma imagem ',
+          maxLines: 3,
+          style: TextStyle(
+              color: _inputTextColor,
+              fontFamily: 'Courier New',
+              fontSize: 16.0),
+        ),
         backgroundColor: Colors.black,
         foregroundColor: _inputTextColor,
       ),
@@ -108,10 +115,13 @@ class _HomeScreenState extends State<HomeScreen> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: TextField(
-              style: TextStyle(color: _inputTextColor),
+              style:
+                  TextStyle(color: _inputTextColor, fontFamily: 'Courier New'),
               controller: _inputController,
               expands: false,
               decoration: InputDecoration(
+                fillColor: Colors.white,
+                focusColor: Colors.white,
                 hintText: 'Digite os ingredientes',
                 border: OutlineInputBorder(
                     borderSide: BorderSide(color: _inputTextColor, width: 1.0)),
@@ -157,7 +167,13 @@ class _HomeScreenState extends State<HomeScreen> {
         width: double.infinity,
         child: ElevatedButton(
           onPressed: _sendButtonPressed,
-          child: const Text('Gerar receita'),
+          child: const Text(
+            'Gerar receita',
+            style: TextStyle(
+                fontFamily: 'Courier New',
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold),
+          ),
         ),
       );
     }
