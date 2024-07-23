@@ -5,12 +5,11 @@ class GeminiAPI {
   late final GenerativeModel _model;
   final String modelName;
 
-  GeminiAPI({required this.apiKey, this.modelName="gemini-1.5-flash"}) {
+  GeminiAPI({required this.apiKey, this.modelName = "gemini-1.5-flash"}) {
     _model = GenerativeModel(model: modelName, apiKey: apiKey);
   }
 
   Future<GenerateContentResponse?> executePrompt(List<String> items) async {
-
     final List<Content> content = [];
 
     for (var element in items) {
@@ -27,5 +26,4 @@ class GeminiAPI {
       return null;
     }
   }
-
 }
