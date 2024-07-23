@@ -1,5 +1,4 @@
 class PromptCreator {
-
   static List<String> createRecipePrompt(String ingredients) {
     List<String> prompt = [];
     prompt.add(
@@ -13,5 +12,16 @@ class PromptCreator {
     prompt.add(ingredients);
     return prompt;
   }
-  
+
+  static List<String> createRecipePromptForImage() {
+    List<String> prompt = [];
+    prompt.add(
+        "Você é um chefe de cozinha e vai apoiar cozinheiros amadores a criar receitas com ingredientes que estão à sua disposição");
+    prompt.add(
+        "Com base na imagem fornecida, identifique os elementos e sugira uma única receita detalhando: resumo da receita contendo título e tempo médio de preparo");
+    prompt.add("ingredientes necessários");
+    prompt.add("modo de preparo");
+    
+    return prompt;
+  }
 }
